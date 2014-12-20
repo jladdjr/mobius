@@ -1,0 +1,11 @@
+Mobius Changelog
+===============
+
+The following notes describe changes between releases of Mobius:
+
+Version 0.1.0
+--------------
+
+(initial release, released on June 14th 2014)
+
+- Create raw skeleton of project 

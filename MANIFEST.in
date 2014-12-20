@@ -1,0 +1,2 @@
+include *.txt run_tests.py
+recursive-include docs *.txt
