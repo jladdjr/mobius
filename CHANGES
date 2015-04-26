@@ -9,3 +9,8 @@ Version 0.1.0
 (initial release, released on June 14th 2014)
 
 - Create raw skeleton of project 
+
+Version 0.1.1
+--------------
+
+Minor changes to package structure and unit tests.

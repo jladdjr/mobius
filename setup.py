@@ -8,7 +8,7 @@ from distutils.core import setup
 
 setup(
     name='mobius',
-    version='0.0.1',
+    version='0.1.1',
     author='James Ladd Jr',
     author_email='mobius.search@gmail.com',
     packages=['mobius', 'mobius.tests'],
