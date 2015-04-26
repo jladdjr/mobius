@@ -11,7 +11,7 @@ setup(
     version='0.0.1',
     author='James Ladd Jr',
     author_email='mobius.search@gmail.com',
-    packages=['mobius'],
+    packages=['mobius', 'mobius.tests'],
     url='https://github.com/jladdjr/mobius',
     license='GPLv2',
     description='A micro search engine',

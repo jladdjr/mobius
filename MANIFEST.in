@@ -1,2 +1,1 @@
 include CHANGES LICENSE README 
-recursive-include tests *.py
