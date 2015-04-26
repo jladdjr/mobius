@@ -9,6 +9,13 @@ Requirements
 
 None
 
+Tests
+-----
+
+To run tests, use:
+
+python -m tests.test
+
 Contributors
 ------------
 

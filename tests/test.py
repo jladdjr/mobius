@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 
+# Ignore lowercase constant names (in bottom section)
+# pylint: disable=C0103
+
 """
 Test for Mobius.
 """
 
+from mobius import main
 import unittest
 import xmlrunner
 
@@ -16,20 +20,14 @@ class MobiusTest(unittest.TestCase):
         """
         Test run() method.
         """
-        from mobius.main import Main
-
-        main = Main()
-        result = main.run()
+        mob = main.Main()
+        result = mob.run()
 
         self.assertEqual(result, 0)
 
-#Execute tests
-def execute_tests():
-    """
-    Runs all tests.
-    """
+if __name__ == '__main__':
     #unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
     suite = unittest.TestLoader().loadTestsFromTestCase(MobiusTest)
-    result = xmlrunner.XMLTestRunner(output='test-reports').run(suite)
-    failures_and_errors = len(result.failures) + len(result.errors)
-    return failures_and_errors 
+    testResult = xmlrunner.XMLTestRunner(output='test-reports').run(suite)
+    failures_and_errors = len(testResult.failures) + len(testResult.errors)
+    exit(failures_and_errors) 
