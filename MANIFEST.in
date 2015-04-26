@@ -1,2 +1,2 @@
-include *.txt run_tests.py
-recursive-include docs *.txt
+include CHANGES LICENSE README 
+recursive-include tests *.py
