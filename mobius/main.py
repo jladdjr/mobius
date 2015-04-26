@@ -20,4 +20,4 @@ class Main(object):
         Run Main.
         """
         print self._test_text
-        return 0
+        return 0 
