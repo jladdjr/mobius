@@ -71,9 +71,11 @@ class WebCrawler(object):
         #Print index
         self._printIndex()
 
-    def _getParsedPage(url):
+    def _getParsedPage(self, url):
         """
-        Parses a web page.
+        * Requests page at url. 
+        * Parses web page.
+        * Returns parsed page (as lxml.html object)
 
         :param url: URL for page
         :returns:   Parsed page (lxml.html object)
@@ -301,8 +303,9 @@ class WebCrawler(object):
             formattedKey = (key[:48] + "..") if len(key) > 50 else key
             formattedKey = formattedKey.ljust(50)
 
-            #Truncate title
+            #Truncate title, Remove newlines
             title = self._index[key]
             formattedTitle = (title[:48] + "..") if len(title) > 50 else title
+            formattedTitle = formattedTitle.replace('\n','')
 
             print "%s %s" % (formattedKey, formattedTitle)

@@ -24,5 +24,5 @@ setup(
         "Development Status :: 1 - Planning"
         ],
     keywords='web search',
-    install_requires=['lxml','requests','xmlrunner']
+    install_requires=['lxml', 'requests', 'xmlrunner', 'mock']
 )
