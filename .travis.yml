@@ -1,4 +1,4 @@
 language: python
-script: py.test mobius/tests
+script: pip install . && py.test mobius/tests
 python:
     - "2.7"
