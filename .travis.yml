@@ -1,4 +1,4 @@
 language: python
-script: pytest mobius/tests
+script: py.test mobius/tests
 python:
     - "2.7"
