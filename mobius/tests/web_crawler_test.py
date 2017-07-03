@@ -1,10 +1,10 @@
-#!/usr/bin/env python
+# !/usr/bin/env python
 
-# Ignore lowercase constant names (in bottom section)
-# pylint: disable=C0103
+#  Ignore lowercase constant names (in bottom section)
+#  pylint: disable=C0103
 
-# Ignore protected access to private methods
-# pylint: disable=W0212
+#  Ignore protected access to private methods
+#  pylint: disable=W0212
 
 """
 Web Crawler test.
@@ -16,14 +16,15 @@ import xmlrunner
 from mock import (Mock, PropertyMock, patch)
 import requests
 
-from mobius.web_crawler import WebCrawler
+from mobius.mobius.web_crawler.parser import getParsedPage
+
 
 class WebCrawlerTest(unittest.TestCase):
     """
     Tests Web Crawler.
     """
 
-    #Create a mock class for Response
+    # Create a mock class for Response
     @patch('requests.models.Response')
     def test_getParsedPage(self, MockResponseClass):
         """
@@ -31,12 +32,12 @@ class WebCrawlerTest(unittest.TestCase):
 
         :param MockResponseClass: Mock of request's Response class.
         """
-        #Create a mock requests.Response object
-        #(This allows us to simulate requesting a webpage)
+        # Create a mock requests.Response object
+        # (This allows us to simulate requesting a webpage)
         mockResponse = MockResponseClass()
         type(mockResponse).status_code = PropertyMock(return_value=200)
         type(mockResponse).headers = \
-            PropertyMock(return_value={'content-type' : 'text/html'})
+            PropertyMock(return_value={'content-type': 'text/html'})
         type(mockResponse).text = \
             PropertyMock(return_value="""\
 <html>
@@ -48,31 +49,28 @@ class WebCrawlerTest(unittest.TestCase):
 </html>
 """)
 
-        #Mock get method (to return mock response)
+        # Mock get method (to return mock response)
         requests.get = Mock(return_value=mockResponse)
 
-        #Create web crawler
-        crawler = WebCrawler()
-
-        #Test method
+        # Test method
         url = 'http://mock.com'
-        parsedPage = crawler._getParsedPage(url)
+        parsedPage = getParsedPage(url)
 
-        #Get page title from parsed page
+        # Get page title from parsed page
         results = parsedPage.xpath("/html/head/title/text()")
         self.assertEqual(len(results), 1)
         title = results[0]
         self.assertEqual(title, "Mock webpage")
 
-        #Get url from parsed page
+        # Get url from parsed page
         results = parsedPage.xpath("/html/body/a/@href")
         self.assertEqual(len(results), 1)
         href = results[0]
         self.assertEqual(href, "http://mock.com/another/page.htm")
 
 if __name__ == '__main__':
-    #unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
+    # unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
     suite = unittest.TestLoader().loadTestsFromTestCase(WebCrawlerTest)
     testResult = xmlrunner.XMLTestRunner(output='test-reports').run(suite)
     failures_and_errors = len(testResult.failures) + len(testResult.errors)
-    exit(failures_and_errors) 
+    exit(failures_and_errors)

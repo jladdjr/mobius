@@ -4,14 +4,14 @@
 Call distutils to install Mobius.
 """
 
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(
     name='mobius',
     version='0.1.1',
     author='James Ladd Jr',
     author_email='mobius.search@gmail.com',
-    packages=['mobius', 'mobius.tests'],
+    packages=find_packages(exclude=['mobius.tests']),
     url='https://github.com/jladdjr/mobius',
     license='GPLv2',
     description='A micro search engine',
@@ -22,7 +22,7 @@ setup(
         "Operating System :: POSIX :: Linux",
         "Programming Language :: Python :: 2.7",
         "Development Status :: 1 - Planning"
-        ],
+    ],
     keywords='web search',
     install_requires=['lxml', 'requests', 'xmlrunner', 'mock']
 )

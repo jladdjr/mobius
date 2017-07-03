@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
 """
-Temporary shell for Mobius 
+Temporary shell for Mobius
 """
+
 
 class Main(object):
     """
@@ -19,5 +20,5 @@ class Main(object):
         """
         Run Main.
         """
-        print self._test_text
-        return 0 
+        print(self._test_text)
+        return 0

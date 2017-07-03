@@ -1,4 +1,11 @@
 language: python
-script: pip install . && py.test mobius/tests
+script: 
+    - pep8 .
+    - pyflakes .
+    - pip install . && py.test mobius/tests
 python:
     - "2.7"
+    - "3.6"
+matrix:
+    allow_failures:
+        - "3.6"

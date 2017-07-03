@@ -6,10 +6,10 @@
 """
 Test for Mobius.
 """
-
-from mobius import main
+from mobius.mobius import main
 import unittest
 import xmlrunner
+
 
 class MobiusTest(unittest.TestCase):
     """
@@ -26,8 +26,8 @@ class MobiusTest(unittest.TestCase):
         self.assertEqual(result, 0)
 
 if __name__ == '__main__':
-    #unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
+    # unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
     suite = unittest.TestLoader().loadTestsFromTestCase(MobiusTest)
     testResult = xmlrunner.XMLTestRunner(output='test-reports').run(suite)
     failures_and_errors = len(testResult.failures) + len(testResult.errors)
-    exit(failures_and_errors) 
+    exit(failures_and_errors)
