@@ -1,7 +1,6 @@
 language: python
 script: 
-    - pep8 .
-    - pyflakes .
+    - flake8
     - pip install . && py.test mobius/tests
 python:
     - "2.7"

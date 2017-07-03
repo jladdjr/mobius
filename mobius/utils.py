@@ -1,32 +1,32 @@
 import re
 
 
-def cleanURLs(currentURL, urls):
+def clean_urls(current_url, urls):
     """
     Cleans a list of URLs retrieved from web page. Returns a unique set of
     absolute URLs.
 
-    :param currentURL: Current url (including protocol)
-    :param urls:       List of URLs (retrieved, using xpath, from a given
-                       page)
+    :param current_url: Current url (including protocol)
+    :param urls:        List of URLs (retrieved, using xpath, from a given
+                        page)
     """
     # Convert list to set (to ensure uniqueness)
     urls = set(urls)
 
     # Create new set. Will add valid URLs to this set.
-    cleanURLs = set()
+    clean_urls = set()
 
     # Get base url of current page (i.e. everything but path)
-    baseURL = ''
+    base_url = ''
 
-    doubleSlashIndex = currentURL.find('://')
-    assert doubleSlashIndex != -1, "_cleanURLS(): currentURL missing protocol"
+    double_slash_index = current_url.find('://')
+    assert double_slash_index != -1, "_cleanURLS(): current_url missing protocol"
 
-    slashIndex = currentURL.find('/', doubleSlashIndex + 3)
-    if slashIndex == -1:
-        baseURL = currentURL
+    slash_index = current_url.find('/', double_slash_index + 3)
+    if slash_index == -1:
+        base_url = current_url
     else:
-        baseURL = currentURL[:slashIndex]
+        base_url = current_url[:slash_index]
 
     # Process urls
     for url in urls:
@@ -75,20 +75,20 @@ def cleanURLs(currentURL, urls):
         # Is this a relative url?
         elif url[0] == '/':
             # make absolute
-            url = baseURL + url
+            url = base_url + url
         else:
-            url = baseURL + '/' + url
+            url = base_url + '/' + url
 
         # If url includes an extension, verify that it is useable
-        lastSlashIndex = url.rfind('/')
+        last_slash_index = url.rfind('/')
 
         # If there is no slash (or slash apppears at end of url)
-        if lastSlashIndex == -1 or lastSlashIndex == len(url) - 1:
+        if last_slash_index == -1 or last_slash_index == len(url) - 1:
             # No extension. Assume page is readable.
-            cleanURLs.add(url)
+            clean_urls.add(url)
         else:
             # URL does include path. Check extension.
-            page = url[lastSlashIndex + 1:]
+            page = url[last_slash_index + 1:]
             page = page.lower()
 
             if page.find('.htm') == -1 and \
@@ -103,10 +103,10 @@ def cleanURLs(currentURL, urls):
                 continue
 
             # Page has valid extension
-            cleanURLs.add(url)
+            clean_urls.add(url)
 
     # Convert set back to list
     # TODO: Is this a good use of sets / lists?
-    cleanURLs = list(cleanURLs)
+    clean_urls = list(clean_urls)
 
-    return cleanURLs
+    return clean_urls

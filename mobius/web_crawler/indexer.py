@@ -4,7 +4,7 @@ class Indexer(object):
     def __init__(self):
         self._index = {}  # Index - maps page titles to URLs
 
-    def processPage(self, url, tree):
+    def process_page(self, url, tree):
         """
         Indexes a given page.
 
@@ -23,7 +23,7 @@ class Indexer(object):
         # Map title to url
         self._index[url] = title
 
-    def printIndex(self):
+    def print_index(self):
         """
         Prints index.
         """
@@ -31,12 +31,12 @@ class Indexer(object):
 
         for key in keys:
             # Trunace / Pad key
-            formattedKey = (key[:48] + "..") if len(key) > 50 else key
-            formattedKey = formattedKey.ljust(50)
+            formatted_key = (key[:48] + "..") if len(key) > 50 else key
+            formatted_key = formatted_key.ljust(50)
 
             # Truncate title, Remove newlines
             title = self._index[key]
-            formattedTitle = (title[:48] + "..") if len(title) > 50 else title
-            formattedTitle = formattedTitle.replace('\n', '')
+            formatted_title = (title[:48] + "..") if len(title) > 50 else title
+            formatted_title = formatted_title.replace('\n', '')
 
-            print("{0} {1}".format(formattedKey, formattedTitle))
+            print("{0} {1}".format(formatted_key, formatted_title))
