@@ -15,7 +15,7 @@ setup(
     url='https://github.com/jladdjr/mobius',
     license='GPLv2',
     description='A micro search engine',
-    long_description=open('README').read(),
+    long_description=open('README.md').read(),
     classifiers=[
         "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
