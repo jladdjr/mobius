@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 # !/usr/bin/env python
 
-from mobius.web_crawler import parser, indexer
+from mobius.web_crawler import parser, indexer, index
+from mobius.web_crawler.index import Index
 from mobius.utils import clean_urls
 
 """
@@ -15,14 +17,14 @@ class WebCrawler(object):
     Web Crawler.
     """
 
-    def __init__(self, start_url="http://en.wikipedia.org"):
+    def __init__(self, start_url="https://www.google.com"):
+        #def __init__(self, start_url="https://www.google.com/intl/en/about/"):
         """
         Initializes WebCrawler object.
 
         :param start_url: First page web crawler visits.
         """
         self._start_url = start_url       # First page to index
-        self._indexer = indexer.Indexer()
 
     def run(self, num_pages):
         """
@@ -30,40 +32,35 @@ class WebCrawler(object):
 
         :param num_pages: Number of pages web crawler visits.
         """
-        print("Indexing..")
-        print("")
+        with Index() as index: 
+            _indexer = indexer.Indexer(index)
+            print("Indexing..")
+            print("")
 
-        # Begin with starting page
-        url = self._start_url
+            # Begin with starting page
+            url = self._start_url
 
-        # Keep track of previous url. Will return to this
-        # if a page is unavailable (or unreadable)
-        previous_url = url
-
-        # Loop to index each page
-        index = 0
-        while index < num_pages:
-            print("{0}: {1}".format(index, url))
-
-            tree = parser.get_parsed_page(url)
-            if tree is None:
-                url = previous_url
-                tree = parser.get_parsed_page(url)
-
-            self._indexer.process_page(url, tree)
-
+            # Keep track of previous url. Will return to this
+            # if a page is unavailable (or unreadable)
             previous_url = url
-            url = self._nextPage(url, tree)
-            index += 1
 
-        print("")
-        print("-----------------------------------")
-        print("")
-        print("Results:")
-        print("")
+            # Loop to index each page
+            i = 0
+            while i < num_pages:
+                print("{0}: {1}".format(i, url))
 
-        # Print index
-        self._indexer.print_index()
+                tree = parser.get_parsed_page(url)
+                if tree is None:
+                    url = previous_url
+                    tree = parser.get_parsed_page(url)
+
+                _indexer.process_page(url, tree)
+
+                previous_url = url
+                url = self._nextPage(url, tree)
+                i += 1
+
+            print(index)
 
     def _nextPage(self, current_url, tree):
         """

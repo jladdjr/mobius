@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from lxml import html
 import requests
 from urllib3.exceptions import LocationParseError  # Thrown by requests

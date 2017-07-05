@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
+import random
+import nltk
 
 class Indexer(object):
 
-    def __init__(self):
-        self._index = {}  # Index - maps page titles to URLs
+    def __init__(self, index):
+        self._index = index
 
     def process_page(self, url, tree):
         """
@@ -14,29 +17,23 @@ class Indexer(object):
         # Get title
         xpath = '/html/head/title/text()'
         title = tree.xpath(xpath)
-        if title is None or len(title) == 0:
+        if title is None or len(title) != 1:
             # Ignore pages without a title
             return
-        else:
-            title = title[0].strip()  # Remove whitespace at beginning/end
+        title = title.pop().strip()  # Remove whitespace at beginning/end
 
-        # Map title to url
-        self._index[url] = title
+        xpath = "/html/head/meta[@name='description']/@content"
+        description = tree.xpath(xpath)
+        if description is None or len(description) != 1:
+            # Ignore pages without a description
+            return
+        description = description.pop()
 
-    def print_index(self):
-        """
-        Prints index.
-        """
-        keys = sorted(self._index.keys())
+        # Parse description
+        tagged_tokens = nltk.pos_tag(nltk.word_tokenize(description))
+        weighted_keywords = []
+        for token, tag in tagged_tokens:
+            if tag in ['NN', 'NNP']:  # If noun or proper noun
+                weighted_keywords.append((token, random.randint(0, 100)))
 
-        for key in keys:
-            # Trunace / Pad key
-            formatted_key = (key[:48] + "..") if len(key) > 50 else key
-            formatted_key = formatted_key.ljust(50)
-
-            # Truncate title, Remove newlines
-            title = self._index[key]
-            formatted_title = (title[:48] + "..") if len(title) > 50 else title
-            formatted_title = formatted_title.replace('\n', '')
-
-            print("{0} {1}".format(formatted_key, formatted_title))
+        self._index.index_site(url, weighted_keywords) 
