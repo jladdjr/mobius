@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # !/usr/bin/env python
 
-from mobius.web_crawler import parser, indexer, index
+from mobius.web_crawler import parser, indexer
 from mobius.web_crawler.index import Index
 from mobius.utils import clean_urls
 
@@ -18,7 +18,7 @@ class WebCrawler(object):
     """
 
     def __init__(self, start_url="https://www.google.com"):
-        #def __init__(self, start_url="https://www.google.com/intl/en/about/"):
+        # def __init__(self, start_url="https://www.google.com/intl/en/about/"):
         """
         Initializes WebCrawler object.
 
@@ -32,7 +32,7 @@ class WebCrawler(object):
 
         :param num_pages: Number of pages web crawler visits.
         """
-        with Index() as index: 
+        with Index() as index:
             _indexer = indexer.Indexer(index)
             print("Indexing..")
             print("")

@@ -2,6 +2,7 @@
 import os
 import sqlite3
 
+
 class Index(object):
 
     def __init__(self, database_path=''):
@@ -20,19 +21,19 @@ class Index(object):
         self._conn.close()
 
     def __repr__(self):
-	cur = self._conn.cursor()
-	text = u'sites\n-----\n'
+        cur = self._conn.cursor()
+        text = u'sites\n-----\n'
         for rowid, address in cur.execute(u'''SELECT rowid, address FROM sites''').fetchall():
             address = (address[:58] + u"..") if len(address) > 60 else address
             address = address.ljust(60)
             text += u"{0} {1}\n".format(rowid, address)
-        
+
         for table in cur.execute(u'''SELECT name FROM sqlite_master WHERE type="table"''').fetchall():
             if table[0] == u'sites':
                 continue
-	    text += u'\n{0}\n{1}\n'.format(table[0], u'-' * len(table[0]))
-	    for site_id, relevance in cur.execute(u'''SELECT site_id, relevance FROM {0}'''.format(table[0])).fetchall():
-		text += u"{0} {1}\n".format(str(site_id).ljust(3), relevance)
+        text += u'\n{0}\n{1}\n'.format(table[0], u'-' * len(table[0]))
+        for site_id, relevance in cur.execute(u'''SELECT site_id, relevance FROM {0}'''.format(table[0])).fetchall():
+            text += u"{0} {1}\n".format(str(site_id).ljust(3), relevance)
         return text[:-1]
 
     __str__ = __repr__

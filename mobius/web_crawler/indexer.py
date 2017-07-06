@@ -2,6 +2,7 @@
 import random
 import nltk
 
+
 class Indexer(object):
 
     def __init__(self, index):
@@ -36,4 +37,4 @@ class Indexer(object):
             if tag in ['NN', 'NNP']:  # If noun or proper noun
                 weighted_keywords.append((token, random.randint(0, 100)))
 
-        self._index.index_site(url, weighted_keywords) 
+        self._index.index_site(url, weighted_keywords)
