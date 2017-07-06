@@ -35,6 +35,20 @@ Building a search engine gives an opportunity to:
   results; how to build an intuitive interface (both UI
   and API) for searching.
 
+## Project status
+
+Feature | Status
+------- | ------
+Python 3 compliant | :white_check_mark:
+Travis CI Integration | :white_check_mark:
+Unit Tests | (In Progress)
+Integration Tests | 
+Web Crawler | :white_check_mark: (prototype)
+Search (REST API) | 
+Search (UI) |
+Automatic Deployments (to pythonanywhere.com) | 
+
+
 ## Requirements
 
 None
